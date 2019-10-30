@@ -27,7 +27,15 @@ import be.afelio.software_academy.spring_boot.chinook.persistence.ApplicationRep
 public class AlbumController {
 
 	@Autowired ApplicationRepository repository;
-	
+/*
+	OU ALORS (mieux):
+	private final ApplicationRepository repository;
+
+	public AlbumController(ApplicationRepository repository) {
+		this.repository = repository;
+	}
+*/
+
 	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResponseDto<List<AlbumDto>>> findAllAlbum() {
 		
