@@ -31,15 +31,14 @@ public class TrackController {
 			List<TrackDto> album = repository.findAllTrackDtoByAlbumTitle(title);
 			
 			if ( album == null) {
-				dto = new ResponseDto<List<TrackDto>>(ResponseDtoStatus.FAILURE, " No album found");
+				dto = new ResponseDto<>(ResponseDtoStatus.FAILURE, " No track found");
 			} else {
-				dto = new ResponseDto<List<TrackDto>>(ResponseDtoStatus.SUCCESS, album.size() + " tracks found");
+				dto = new ResponseDto<>(ResponseDtoStatus.SUCCESS, album.size() + " tracks found");
 				dto.setPayload(album);
 			}
 			
 		} catch(Exception e) {
-			dto = new ResponseDto<List<TrackDto>>(ResponseDtoStatus.FAILURE, "Unexpected exception");
-			e.printStackTrace();
+			dto = new ResponseDto<>(ResponseDtoStatus.FAILURE, "Unexpected exception");
 		}
 		
 		return ResponseEntity.ok(dto);

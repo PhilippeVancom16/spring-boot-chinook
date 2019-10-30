@@ -26,6 +26,10 @@ import be.afelio.software_academy.spring_boot.chinook.persistence.ApplicationRep
 @RequestMapping(value="album")
 public class AlbumController {
 
+	private String noAlbumFound = " No album found";
+	private String albumFound = " albums found";
+	private String exception = "Unexpected exception";
+
 	@Autowired ApplicationRepository repository;
 /*
 	OU ALORS (mieux):
@@ -45,15 +49,14 @@ public class AlbumController {
 			List<AlbumDto> album = repository.findAllAlbumDto();
 			
 			if ( album == null) {
-				dto = new ResponseDto<List<AlbumDto>>(ResponseDtoStatus.FAILURE, " No album found");
+				dto = new ResponseDto<>(ResponseDtoStatus.FAILURE, noAlbumFound);
 			} else {
-				dto = new ResponseDto<List<AlbumDto>>(ResponseDtoStatus.SUCCESS, album.size() + " albums found");
+				dto = new ResponseDto<>(ResponseDtoStatus.SUCCESS, album.size() + albumFound);
 				dto.setPayload(album);
 			}
 			
 		} catch(Exception e) {
-			dto = new ResponseDto<List<AlbumDto>>(ResponseDtoStatus.FAILURE, "Unexpected exception");
-			e.printStackTrace();
+			dto = new ResponseDto<>(ResponseDtoStatus.FAILURE, exception);
 		}
 		
 		return ResponseEntity.ok(dto);
@@ -69,15 +72,14 @@ public class AlbumController {
 			List<AlbumDto> album = repository.findAllAlbumDtoByArtistName(artistName);
 			
 			if ( album == null) {
-				dto = new ResponseDto<List<AlbumDto>>(ResponseDtoStatus.FAILURE, " No album found");
+				dto = new ResponseDto<>(ResponseDtoStatus.FAILURE, noAlbumFound);
 			} else {
-				dto = new ResponseDto<List<AlbumDto>>(ResponseDtoStatus.SUCCESS, album.size() + " albums found");
+				dto = new ResponseDto<>(ResponseDtoStatus.SUCCESS, album.size() + albumFound);
 				dto.setPayload(album);
 			}
 			
 		} catch(Exception e) {
-			dto = new ResponseDto<List<AlbumDto>>(ResponseDtoStatus.FAILURE, "Unexpected exception");
-			e.printStackTrace();
+			dto = new ResponseDto<>(ResponseDtoStatus.FAILURE, exception);
 		}
 		
 		return ResponseEntity.ok(dto);
@@ -93,15 +95,14 @@ public class AlbumController {
 			List<AlbumDto> album = repository.findAllAlbumDtoByGenreName(genreName);
 			
 			if ( album == null) {
-				dto = new ResponseDto<List<AlbumDto>>(ResponseDtoStatus.FAILURE, " No album found");
+				dto = new ResponseDto<>(ResponseDtoStatus.FAILURE, noAlbumFound);
 			} else {
-				dto = new ResponseDto<List<AlbumDto>>(ResponseDtoStatus.SUCCESS, album.size() + " albums found");
+				dto = new ResponseDto<>(ResponseDtoStatus.SUCCESS, album.size() + albumFound);
 				dto.setPayload(album);
 			}
 			
 		} catch(Exception e) {
-			dto = new ResponseDto<List<AlbumDto>>(ResponseDtoStatus.FAILURE, "Unexpected exception");
-			e.printStackTrace();
+			dto = new ResponseDto<>(ResponseDtoStatus.FAILURE, exception);
 		}
 		
 		return ResponseEntity.ok(dto);
@@ -113,20 +114,19 @@ public class AlbumController {
 		
 		try {
 			repository.createAlbum(createAlbumDto);
-			dto = new ResponseDto<List<AlbumDto>>(ResponseDtoStatus.SUCCESS, "Album created");
+			dto = new ResponseDto<>(ResponseDtoStatus.SUCCESS, "Album created");
 			
 		} catch(InvalidCreateParametersException e) {
-			dto = new ResponseDto<List<AlbumDto>>(ResponseDtoStatus.FAILURE, "Invalid create parameters");
+			dto = new ResponseDto<>(ResponseDtoStatus.FAILURE, "Invalid create parameters");
 			
 		} catch(DuplicatedAlbumException e) {		
-			dto = new ResponseDto<List<AlbumDto>>(ResponseDtoStatus.FAILURE, "Duplicated Album");
+			dto = new ResponseDto<>(ResponseDtoStatus.FAILURE, "Duplicated Album");
 			
 		} catch(ArtistNotFoundException e) {			
-			dto = new ResponseDto<List<AlbumDto>>(ResponseDtoStatus.FAILURE, "Artist not found");
+			dto = new ResponseDto<>(ResponseDtoStatus.FAILURE, "Artist not found");
 			
 		} catch(Exception e) {			
-			dto = new ResponseDto<List<AlbumDto>>(ResponseDtoStatus.FAILURE, "Unexpected exception");
-			e.printStackTrace();
+			dto = new ResponseDto<>(ResponseDtoStatus.FAILURE, exception);
 		}
 		return ResponseEntity.ok(dto);
 	}
