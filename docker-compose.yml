@@ -13,7 +13,7 @@ services:
   chinook:
     depends_on:
       - db
-    image: chinook:latest
+    image: chinook:0.0.1-SNAPSHOT
     ports:
       - "8080:8080"
     restart: always
